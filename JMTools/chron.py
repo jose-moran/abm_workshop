@@ -19,9 +19,9 @@ def chron(f: Callable) -> Callable:
     """
     @wraps(f)  # Needed to keep f's docstring
     def timedf(*args, **kwargs):
-        timed = kwargs.get('timed', False)
+        timed = kwargs.pop('timed', False)
         ts = perf_counter()
-        result = f(*args)
+        result = f(*args, **kwargs)
         te = perf_counter()
         if timed:
             print(f'Function {f.__name__} took {te-ts:.2f}s to run.')

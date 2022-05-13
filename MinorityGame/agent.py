@@ -5,16 +5,16 @@ class Agent:
     """An Agent class for generic games.
     """
 
-    def __init__(self, s: int = 2) -> None:
+    def __init__(self, n_strategies: int = 2) -> None:
         """Initialises an agent with his own set of strategies
 
         Parameters
         ----------
-        s : int, optional
+        n_strategies : int, optional
             Number of strategies used by the agent, by default 2
         """
-        self.s = s  # number of strategies
-        self.Strategies = [Strategy() for i in range(s)]
+        self.n_strategies = n_strategies  # number of strategies
+        self.Strategies = [Strategy() for i in range(n_strategies)]
         self.score = 0  # total number of wins
         self.state = None
         self.action = None

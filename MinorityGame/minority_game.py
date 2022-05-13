@@ -1,7 +1,9 @@
+from JMTools import chron
 import numpy as np
 from .agent import Agent
 from typing import List, Tuple
-from ..JMTools import chron
+import sys
+sys.path.append('..')
 
 
 class MinorityGame:
@@ -17,7 +19,9 @@ class MinorityGame:
     days and decide what to do based on their strategies.
     """
 
-    def __init__(self, N: int, M: int, s: int) -> None:
+    def __init__(self, N_agents: int,
+                 memory_span: int,
+                 n_strategies: int) -> None:
         """Initialise a minority game instance.
 
         Parameters
@@ -29,14 +33,15 @@ class MinorityGame:
         s : int
             Number of strategies per agent
         """
-        self.N_agents: int = N
-        self.memory_span: int = M
+        self.N_agents: int = N_agents
+        self.memory_span: int = memory_span
         initial_outcome = np.random.choice(['0', '1'],
-                                           size=M)
+                                           size=memory_span)
         self.outcomes: str = ''
         for i in initial_outcome:
             self.outcomes += i
-        self.agents: List[Agent] = [Agent(s) for _ in range(N)]
+        self.agents: List[Agent] = [Agent(n_strategies)
+                                    for _ in range(N_agents)]
         self.global_outcome: int = 0
         self.winning_action: int = 0
 
@@ -125,7 +130,7 @@ class MinorityGame:
         )
         global_outcomes = np.empty(T)
         for i in range(T):
-            self.update()
+            self.iterate()
             global_outcomes[i] = self.global_outcome
             agent_scores[:, i] = [agent.score for agent in self.agents]
         return global_outcomes, agent_scores

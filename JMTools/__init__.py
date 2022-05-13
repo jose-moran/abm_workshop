@@ -1,4 +1,4 @@
-from chron import chron
+from .chron import chron
 
 __author__ = 'José Moran'
 __version__ = "May 2022"
