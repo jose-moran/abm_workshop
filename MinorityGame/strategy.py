@@ -2,15 +2,20 @@ from random import choice
 
 
 class Strategy:
+    """A strategy class: implements a dictionary that associates a binary
+    response (+1 or -1) to an abstract state.
+    The state only needs to be a hashable object.
+    """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialise a strategy.
         """
         self.score: int = 0  # Strategy's initial score
         self.Responses: dict = {}  # Records the reponse to each state
 
-    def act(self, state: str):
-        """Act according to current state.
+    def act(self, state: str) -> int:
+        """Act according to current state. If the state hasn't been observed,
+        a random response is initialised as a strategy to it.
 
         Parameters
         ----------
@@ -26,7 +31,7 @@ class Strategy:
             self.Responses[state] = choice([-1, 1])
         return self.Responses[state]
 
-    def update_score(self, v=1):
+    def update_score(self, v=1) -> None:
         """Update the score of the strategy.
 
         Parameters

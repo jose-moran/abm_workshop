@@ -5,7 +5,7 @@ class Agent:
     """An Agent class for generic games.
     """
 
-    def __init__(self, s: int = 2):
+    def __init__(self, s: int = 2) -> None:
         """Initialises an agent with his own set of strategies
 
         Parameters
@@ -19,7 +19,7 @@ class Agent:
         self.state = None
         self.action = None
 
-    def act(self, state: str):
+    def act(self, state: str) -> None:
         """Decide which action to take. Chooses agent's best scoring strategy
         then acts based on its response.
 
@@ -32,7 +32,7 @@ class Agent:
         best_strategy = max(self.Strategies, key=lambda x: x.score)
         self.action = best_strategy.act(state)
 
-    def update(self, winning_choice: str):
+    def update(self, winning_choice: str) -> None:
         """Updates scores for the strategies. If a strategy had made the winning
         choice, then its score is increased. It is decreased otherwise.
 
