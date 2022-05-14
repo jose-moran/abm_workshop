@@ -43,7 +43,7 @@ class MinorityGame:
         self.agents: List[Agent] = [Agent(n_strategies)
                                     for _ in range(N_agents)]
         self.global_outcome: int = 0
-        self.winning_action: int = 0
+        self.winning_action: str = ''
 
     def get_state(self) -> str:
         """Get current state, represented by the last outcomes corresponding to
@@ -55,19 +55,6 @@ class MinorityGame:
             Last outcomes
         """
         return self.outcomes[-self.memory_span:]
-
-    def winning_action_to_string(self) -> str:
-        """Returns the winning action, represented by a 0 or 1 here.
-
-        Returns
-        -------
-        str
-            Winning action, '0' or '1'
-        """
-        if self.winning_action == 1:
-            return '1'
-        else:
-            return '0'
 
     def act_agents(self) -> None:
         """Make agents act on current state

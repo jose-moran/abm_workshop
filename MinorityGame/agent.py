@@ -14,10 +14,10 @@ class Agent:
             Number of strategies used by the agent, by default 2
         """
         self.n_strategies = n_strategies  # number of strategies
-        self.Strategies = [Strategy() for i in range(n_strategies)]
-        self.score = 0  # total number of wins
-        self.state = None
-        self.action = None
+        self.strategies = [Strategy() for _ in range(n_strategies)]
+        self.score: int = 0  # total number of wins
+        self.state: str = ''
+        self.action: int = 0
 
     def act(self, state: str) -> None:
         """Decide which action to take. Chooses agent's best scoring strategy
@@ -29,10 +29,10 @@ class Agent:
             Current observed state.
         """
         self.state = state
-        best_strategy = max(self.Strategies, key=lambda x: x.score)
+        best_strategy = max(self.strategies, key=lambda x: x.score)
         self.action = best_strategy.act(state)
 
-    def update(self, winning_choice: str) -> None:
+    def update(self, winning_action: str) -> None:
         """Updates scores for the strategies. If a strategy had made the winning
         choice, then its score is increased. It is decreased otherwise.
 
@@ -42,14 +42,14 @@ class Agent:
             The winning choice in the game (that of the minority in the
             Minority Game).
         """
-        winning_choice = 1 if winning_choice == '0' else -1
-        for strategy in self.Strategies:
-            if strategy.act(self.state) == winning_choice:
+        winning_choice_int = 1 if winning_action == '0' else -1
+        for strategy in self.strategies:
+            if strategy.act(self.state) == winning_choice_int:
                 strategy.update_score(1)
             else:
                 strategy.update_score(-1)
 
-        if self.action == winning_choice:
+        if self.action == winning_choice_int:
             self.score += 1
         else:
             self.score += -1
