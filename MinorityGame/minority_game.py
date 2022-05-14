@@ -107,10 +107,10 @@ class MinorityGame:
         Returns
         -------
         Tuple[np.ndarray, np.ndarray]
-            First array: N_agents by T array, where coordinate [t,i] contains
-            the score of agent i at time t.
-            Second array: global outcome at time t (sum of agents actions,
+            First array: global outcome at time t (sum of agents actions,
             +1 if they went to the bar, -1 otherwise).
+            Second array: N_agents by T array, where coordinate [t,i] contains
+            the score of agent i at time t.
         """
         agent_scores = np.empty(
             (self.N_agents, T)
