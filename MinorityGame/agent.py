@@ -29,7 +29,8 @@ class Agent:
             Current observed state.
         """
         self.state = state
-        best_strategy = max(self.strategies, key=lambda x: x.score)
+        best_strategy = max(self.strategies,
+                            key=lambda x: x.score)
         self.action = best_strategy.act(state)
 
     def update(self, winning_action: str) -> None:
@@ -42,7 +43,7 @@ class Agent:
             The winning choice in the game (that of the minority in the
             Minority Game).
         """
-        winning_choice_int = 1 if winning_action == '0' else -1
+        winning_choice_int = 1 if winning_action == '1' else -1
         for strategy in self.strategies:
             if strategy.act(self.state) == winning_choice_int:
                 strategy.update_score(1)
@@ -53,3 +54,11 @@ class Agent:
             self.score += 1
         else:
             self.score += -1
+
+    def __str__(self) -> str:
+        strep = ''
+        for i, s in enumerate(self.strategies):
+            strep += f'Strategy {i}:'
+            strep += '\n' + str(s) + '\n'
+            strep += '='*15 + '\n\n'
+        return strep

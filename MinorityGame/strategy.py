@@ -11,7 +11,7 @@ class Strategy:
         """Initialise a strategy.
         """
         self.score: int = 0  # Strategy's initial score
-        self.Responses: dict = {}  # Records the reponse to each state
+        self.responses: dict = {}  # Records the reponse to each state
 
     def act(self, state: str) -> int:
         """Act according to current state. If the state hasn't been observed,
@@ -27,9 +27,9 @@ class Strategy:
         int
             A response: -1 or +1
         """
-        if state not in self.Responses:
-            self.Responses[state] = choice([-1, 1])
-        return self.Responses[state]
+        if state not in self.responses:
+            self.responses[state] = choice([-1, 1])
+        return self.responses[state]
 
     def update_score(self, v=1) -> None:
         """Update the score of the strategy.
@@ -40,3 +40,7 @@ class Strategy:
             amount by which to update score, by default +1
         """
         self.score += v
+
+    def __str__(self) -> str:
+        return f'Score: {self.score} \nResponses: \n' +\
+            ' '*3 + str(self.responses)
